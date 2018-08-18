@@ -1,11 +1,10 @@
-html,body,div,p,h3,ul{
+html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img{
+    margin:0;
     padding:0;
-    margin: 0;
 }
-/* html,body,.page2{
-    width: 100%;
-    height:100%;
-} */
+body{
+    font-size: 16px;
+}
 li{
     list-style: none;
 }
@@ -13,6 +12,7 @@ body{
     font-size: 16px; 
     background:rgba(239,178,152,1);
     padding:0 0 3.5% 0;
+    overflow-y: auto;
 }
 .page2{
     background: url(../image/bg@2x.png) no-repeat;
@@ -25,7 +25,7 @@ body{
 }
 .erweima{
     width: 100%;
-    height:4.5rem;
+    height:4rem;
     background: url(../image/彩带@2x.png) no-repeat;
     background-size: 100% 100%;
     background-position: top center;
@@ -36,12 +36,53 @@ body{
 .erweima>div{
     width: 50%;
     margin-top:0.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 .erweima p{
     text-align: center;
     color: white;
     line-height:0.35rem; 
     font-size: 0.18rem;
+}
+.erweima_img{
+    padding:0.1rem;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.01rem;
+}
+.flow{
+
+}
+.flow_box{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.flow_txt{
+    margin-top: 0.15rem;
+    justify-content: space-between;
+}
+.step{
+    width: 49%;
+    font-size: 0.14rem;
+    line-height: 0.25rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+.step span:first-child{
+    width: 20%;
+    font-size: 0.16rem;
+}
+.step span:last-child{
+    width:66%;
+    font-size: 0.14rem;
 }
 .process{
     width: 93.6%;
@@ -70,7 +111,6 @@ body{
 .prize h3{
     text-align: center;
     color: black;
-    font-family: 'Microsoft YaHei';
 }
 .prize ul li{
     width: 100%;
@@ -87,6 +127,9 @@ body{
     background: #666666;
     width:0.93rem;
     height:0.93rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .txt{
     width:68%;
@@ -114,7 +157,94 @@ body{
 .prize>p{
     text-align: center;
 }
+.tip{
+    color: #b9b9b9;
+    line-height: 0.4rem;
+}
 .flow{
     width:93.6%;
-    height:1.5rem;
+    overflow: hidden;
+}
+@media screen and (max-width:320px) {
+    .erweima{
+        height:3.5rem;
+    }
+    .txt span{
+        font-size: 0.12rem;
+        line-height: 0.2rem;
+    }
+    .txt p{
+        line-height: 0.16rem;
+        font-size: 0.15rem;
+    }
+    .step{
+        width: 49%;
+        font-size: 0.14rem;
+        line-height: 0.25rem;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+    .step span:first-child{
+        font-size: 0.14rem;
+    }
+    .step span:last-child{
+        font-size: 0.13rem;
+    }
+    .process p{
+        font-size: 0.14rem;
+    }
+    .process p:first-child{
+        font-size: 0.16rem;
+    }
+    .prize_img{
+        width:0.89rem;
+        height:0.89rem;
+        
+    }
+    .prize ul li{
+        height:0.89rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding:3.5% 0;
+    }
+    .txt{
+        width:65%;
+    }
+}
+@media screen and (min-width:768px) {
+    .txt span{
+        font-size: 0.16rem;
+        line-height: 0.25rem;
+    }
+    .txt p{
+        line-height: 0.2rem;
+        font-size: 0.2rem;
+    }
+    .process p{
+        font-size: 0.18rem;
+    }
+    .process p:first-child{
+        font-size: 0.20rem;
+    }
+    .prize_img{
+        width:0.95rem;
+        height:0.95rem;
+    }
+    .prize ul li{
+        width: 60%;
+        height:0.95rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding:3.5% 19%;
+    }
+    .txt{
+        width:65%;
+    }
+    .prize h3{
+        font-size: 0.28rem;
+        line-height: 0.35rem;
+    }
 }

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size:625%">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/page1.css" type="text/css">
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../js/common/smartCity_sdk.js"></script>
+    <script src="../js/common/common.js"></script>
+    <script>
+        SmartCity.getUserInfo(function( res ){
+            if( res && res.userinfo.userTokenKey ){
+                var access_token = res.userinfo.userTokenKey
+            }else{    
+                SmartCity.goLogin();
+            }
+        });
+    </script>
+    <title>抽奖</title>
+</head>
+    <body style="opacity: 0">
+        <div class="page1">
+            <div class="container">
+                <div class="details flex_column">
+                    <div class="status">
+                        <div class="flex_column">
+                            <span class="sign">券状态</span>
+                            <span class="state">未领取</span>
+                        </div>
+                    </div>
+                    <div class="tit">
+                        <div>
+                            <span class="act_ame">花开瓯越 花卉博览会</span>
+                            <span class="subhead">2018 浙江（温州）花卉博览会</span>
+                        </div>
+                        <div class="another">
+                            <span class="price">¥1000</span>
+                            <span class="price_name">价值</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rules">
+                    <h3>领票说明</h3>
+                    <ul>
+                        <li>
+                            <div>
+                                <img src="../image/1@2x.png" width="5.6%" alt="">
+                                <div>
+                                    <p>使用时间：<span class="time"></span></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img src="../image/2@2x.png" width="5.6%" alt="">
+                                <div>
+                                    <p>快点温州领票流程</p>
+                                    <span>
+                                        进入活动页面点击我要领票==进入领票页面=输入手机号码==点击获取验证码=输入手机验证码=点击立即领取=提示领票成功:成功领取门票
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img src="../image/3@2x.png" width="5.6%" alt="">
+                                <div>
+                                    <p>快点温州门票使用流程</p>
+                                    <span>
+                                        下载安装快点温州APP=使用领票手机号注册成为会员并登录快点温州APP=进入APP个人中心(我)-我的票=查看电子门票=在【验票处】,工作人员扫描二维码电子票,进入活动
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="getBtn">
+                        <p>
+                            我要领票
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="foot">
+                <img width="100%" height="100%" src="../image/bg2@2x.png" alt="">
+            </div>
+            <div class="dialog">
+                <p>
+                    领票成功
+                </p>
+            </div>
+        </div>
+        
+    </body>
+    <script>
+        var access_token = 'd20a472510e247fc98feba953137fe01'
+        function changeTime(time) {
+            var arr = time.split('-')
+            return arr[0] + '年' + arr[1] + '月' + arr[2] + '日'
+        }
+        $.ajax({
+            url:'http://10.0.3.180/livsns/api/lottery/lottery_api.php',
+            type:'get',
+            data:'a=ticket&id=237&access_token=' + access_token,
+            success:function(res) {
+                var data = JSON.parse(res)[0]
+                var endTime = changeTime(data.lottery.end_time)
+                var startTime = changeTime(data.lottery.start_time)
+                var time = startTime + '-' + endTime
+                $('.time').html(time)
+                $('.state').attr('data',data.status)
+                if (data.status == 0) {
+                    $('.state').html('未领取')
+                    $('.getBtn p').html('我要领票')
+                    $('.getBtn').css({'background':'url(../image/Group2@2x.png) no-repeat','background-size':'100% 100%'})
+                }else{
+                    $('.state').html('已领取')
+                    $('.getBtn p').html('已领取')
+                    $('.getBtn').css({'background':'url(../image/Rectangle8@2x.png) no-repeat','background-size':'100% 100%'})
+                }
+                $('body').css({'opacity':1})
+            }
+        })
+        $('.getBtn').on('click',function() {
+            if ($('.state').attr('data') == '0'){
+                $.ajax({
+                    url:'http://10.0.3.180/livsns/api/lottery/lottery_api.php',
+                    type:'get',
+                    data:'a=getticket&id=237&access_token=' + access_token,
+                    success:function(res) {
+                        var data = JSON.parse(res)[0]
+                        if (data.status){
+                            dialog_control()
+                            $('.getBtn p').html('已领取')
+                            $('.state').attr('data','1')
+                            $('.getBtn').css({'background':'url(../image/Rectangle8@2x.png) no-repeat','background-size':'100% 100%'})
+                            $('.state').html('已领取')
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+</html>
